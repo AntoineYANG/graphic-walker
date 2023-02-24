@@ -22,7 +22,7 @@ const DataSourceSegment: React.FC<DSSegmentProps> = props => {
 
     const { currentDataset, datasets, showDSPanel } = commonStore;
 
-    return <Container className="flex flex-row items-stretch">
+    return <Container className="flex flex-row items-stretch flex-wrap overflow-hidden space-y-2 pt-2">
         <GwFile fileRef={gwFileRef} />
         {!preWorkDone && <div className="animate-spin inline-block mr-2 ml-2 w-4 h-4 rounded-full border-t-2 border-l-2 border-blue-500"></div>}
         <label className="text-xs mr-1 whitespace-nowrap self-center h-4">

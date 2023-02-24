@@ -48,12 +48,17 @@ export const ToolbarContainer = styled.div`
     color: var(--color);
     /* box-shadow: 0px 1px 3px 1px rgba(136, 136, 136, 0.1); */
     border-radius: 2px;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     display: flex;
     flex-direction: row;
+    /* flex-wrap: wrap; */
     > * {
         flex-grow: 0;
         flex-shrink: 0;
+    }
+    ::-webkit-scrollbar {
+        display: none;
     }
 `;
 
