@@ -79,7 +79,7 @@ const Toolbar = memo<ToolbarProps>(function Toolbar ({ items, overflowMode = 'fo
     return (
         <Root style={styles?.root}>
             <ToolbarContainer overflowMode={overflowMode} style={styles?.container}>
-                <div className={`flex-1 h-full flex ${overflowMode === 'fold' ? 'flex-wrap' : 'overflow-hidden'}`} ref={containerRef}>
+                <div className={`items flex-1 h-full flex ${overflowMode === 'fold' ? 'flex-wrap' : 'overflow-hidden'}`} ref={containerRef}>
                     {items.map((item, i) => {
                         if (item === ToolbarItemSplitter) {
                             return <ToolbarSplitter key={i} />;

@@ -51,13 +51,16 @@ export const ToolbarContainer = styled.div<{ overflowMode: 'fold' | 'scroll' }>`
     overflow: hidden;
     display: flex;
     flex-direction: row;
-    ${({ overflowMode }) => overflowMode === 'fold' ? `flex-wrap: wrap;` : `overflow-x: auto;`}
-    > * {
-        flex-grow: 0;
-        flex-shrink: 0;
-    }
-    ::-webkit-scrollbar {
-        display: none;
+    ${({ overflowMode }) => overflowMode === 'fold' ? `flex-wrap: wrap;` : ''}
+    .items {
+        ${({ overflowMode }) => overflowMode === 'scroll' ? `overflow-x: auto;` : ''}
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        > * {
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
     }
 `;
 
