@@ -8,19 +8,19 @@ export interface ToolbarButtonItem extends IToolbarItem {
 }
 
 const ToolbarButton = memo<IToolbarProps<ToolbarButtonItem>>(function ToolbarButton(props) {
-    const { item, styles } = props;
-    const { icon: Icon, label, disabled, onClick } = item;
-    const handlers = useHandlers(() => onClick?.(), disabled ?? false);
+    const { item, styles, disabled: invisible } = props;
+    const { icon: Icon, disabled = false, onClick } = item;
+    const handlers = useHandlers(() => onClick?.(), invisible || disabled);
 
     return (
-        <>
-            <ToolbarItemContainer
-                props={props}
-                handlers={onClick ? handlers : null}
-            >
-                <Icon style={styles?.icon} />
-            </ToolbarItemContainer>
-        </>
+        <ToolbarItemContainer
+            invisible={invisible}
+            props={props}
+            handlers={onClick ? handlers : null}
+            aria-hidden={invisible}
+        >
+            <Icon style={styles?.icon} />
+        </ToolbarItemContainer>
     );
 });
 

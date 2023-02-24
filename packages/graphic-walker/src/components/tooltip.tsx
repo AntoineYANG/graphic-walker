@@ -114,6 +114,9 @@ const Tooltip = memo<TooltipProps>(function Tooltip({
                 if (autoHideTimer) {
                     clearTimeout(autoHideTimer);
                 }
+                if (hideTimer) {
+                    clearTimeout(hideTimer);
+                }
             };
         }
     }, [root, hostId]);

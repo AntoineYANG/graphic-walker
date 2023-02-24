@@ -39,7 +39,7 @@ export const useHandlers = (action: () => void, disabled: boolean, triggerKeys: 
     }), [allowPropagation]);
 };
 
-export const ToolbarContainer = styled.div`
+export const ToolbarContainer = styled.div<{ overflowMode: 'fold' | 'scroll' }>`
     --height: 36px;
     --icon-size: 18px;
     width: 100%;
@@ -48,11 +48,10 @@ export const ToolbarContainer = styled.div`
     color: var(--color);
     /* box-shadow: 0px 1px 3px 1px rgba(136, 136, 136, 0.1); */
     border-radius: 2px;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden;
     display: flex;
     flex-direction: row;
-    /* flex-wrap: wrap; */
+    ${({ overflowMode }) => overflowMode === 'fold' ? `flex-wrap: wrap;` : `overflow-x: auto;`}
     > * {
         flex-grow: 0;
         flex-shrink: 0;

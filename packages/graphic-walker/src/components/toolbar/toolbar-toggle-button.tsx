@@ -46,23 +46,24 @@ export interface ToolbarToggleButtonItem extends IToolbarItem {
 }
 
 const ToolbarToggleButton = memo<IToolbarProps<ToolbarToggleButtonItem>>(function ToolbarToggleButton(props) {
-    const { item, styles } = props;
-    const { icon: Icon, label, disabled, checked, onChange } = item;
-    const handlers = useHandlers(() => onChange(!checked), disabled ?? false);
+    const { item, styles, disabled: invisible } = props;
+    const { icon: Icon, disabled = false, checked, onChange } = item;
+    const handlers = useHandlers(() => onChange(!checked), invisible || disabled);
 
     return (
-        <>
-            <ToolbarItemContainer
-                props={props}
-                handlers={handlers}
-                role="checkbox"
-                aria-checked={checked}
-            >
-                <ToggleContainer checked={checked}>
-                    <Icon style={styles?.icon} />
-                </ToggleContainer>
-            </ToolbarItemContainer>
-        </>
+        <ToolbarItemContainer
+            invisible={invisible}
+            props={props}
+            handlers={handlers}
+            role="checkbox"
+            aria-checked={checked}
+            aria-disabled={disabled}
+            aria-hidden={invisible}
+        >
+            <ToggleContainer checked={checked}>
+                <Icon style={styles?.icon} />
+            </ToggleContainer>
+        </ToolbarItemContainer>
     );
 });
 

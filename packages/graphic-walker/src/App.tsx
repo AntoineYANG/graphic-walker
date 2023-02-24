@@ -122,15 +122,15 @@ const App: React.FC<IGWProps> = (props) => {
                 </div>
                 <Container style={{ marginTop: "0em", borderTop: "none" }}>
                     <VisualSettings rendererHandler={rendererRef} />
-                    <div className="k-md:grid k-md:grid-cols-12 k-xl:grid-cols-6">
-                        <div className="k-md:col-span-3 k-xl:col-span-1">
+                    <div className="k-lg:grid k-lg:grid-cols-12 k-xl:grid-cols-6">
+                        <div className="k-lg:col-span-3 k-xl:col-span-1">
                             <DatasetFields />
                         </div>
-                        <div className="k-md:col-span-2 k-xl:col-span-1">
+                        <div className="k-lg:col-span-2 k-xl:col-span-1">
                             <FilterField />
                             <AestheticFields />
                         </div>
-                        <div className="k-md:col-span-7 k-xl:col-span-4">
+                        <div className="k-lg:col-span-7 k-xl:col-span-4">
                             <div>
                                 <PosFields />
                             </div>
