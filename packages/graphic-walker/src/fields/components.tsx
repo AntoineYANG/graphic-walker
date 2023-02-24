@@ -51,11 +51,9 @@ export const FilterFieldContainer: React.FC = props => {
   const { t } = useTranslation('translation', { keyPrefix: 'constant.draggable_key' });
 
   return (
-    <FilterFieldSegment>
-      <div className="flt-header cursor-default select-none">
-        <h4>{t('filters')}</h4>
-      </div>
-      <div className="flt-container">{props.children}</div>
+    <FilterFieldSegment className="flex flex-col shadow k-sm:rounded-md overflow-hidden k-sm:grow">
+      <h4 className="bg-gray-100 py-1 px-2 capitalize text-left text-xs font-normal text-gray-900">{t("filters")}</h4>
+      <div className="flex-1 flex flex-row k-lg:flex-col overflow-hidden pb-1">{props.children}</div>
     </FilterFieldSegment>
   );
 }
@@ -107,22 +105,9 @@ export const FieldListSegment = styled.div`
 `;
 
 export const FilterFieldSegment = styled.div`
-  border: 1px solid #e5e7eb;
+  /* border: 1px solid #e5e7eb; */
   font-size: 12px;
   margin: 0.2em;
-
-  .flt-header {
-    border-bottom: 1px solid #e5e7eb;
-    padding: 0.6em;
-
-    > h4 {
-      font-weight: 400;
-    };
-  },
-
-  .flt-container {
-
-  },
 `
 
 export const Pill = styled.div<{colType: 'discrete' | 'continuous'}>`

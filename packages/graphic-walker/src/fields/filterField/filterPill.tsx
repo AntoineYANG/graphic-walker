@@ -10,51 +10,11 @@ import { useGlobalStore } from '../../store';
 interface FilterPillProps {
     provided: DraggableProvided;
     fIndex: number;
+    isDragging: boolean;
 }
 
-const Pill = styled.div({
-  userSelect: 'none',
-  alignItems: 'stretch',
-  borderStyle: 'solid',
-  borderWidth: '1px',
-  boxSizing: 'border-box',
-  cursor: 'default',
-  display: 'flex',
-  flexDirection: 'column',
-  fontSize: '12px',
-  minWidth: '150px',
-  overflowY: 'hidden',
-  padding: 0,
-
-  '> *': {
-    flexGrow: 1,
-    paddingBlock: '0.2em',
-    paddingInline: '0.5em',
-  },
-  
-  '> header': {
-    height: '20px',
-    borderBottomWidth: '1px',
-  },
-  '> div.output': {
-    minHeight: '20px',
-
-    '> span': {
-        overflowY: 'hidden',
-        maxHeight: '4em',
-    },
-  },
-
-  '> .output .icon': {
-    display: 'none',
-  },
-  '> .output:hover .icon': {
-    display: 'unset',
-  },
-});
-
 const FilterPill: React.FC<FilterPillProps> = observer(props => {
-    const { provided, fIndex } = props;
+    const { provided, fIndex, isDragging } = props;
     const { vizStore } = useGlobalStore();
     const { draggableFieldState } = vizStore;
 
@@ -63,24 +23,24 @@ const FilterPill: React.FC<FilterPillProps> = observer(props => {
     const { t } = useTranslation('translation', { keyPrefix: 'filters' });
 
     return (
-        <Pill
-            className="text-gray-900"
+        <div
+            className={`flex flex-col py-0.5 px-2 space-y-0.5 bg-gray-100 ${isDragging ? 'bg-opacity-20 !border-t-0' : 'bg-opacity-0'}`}
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
         >
-            <header className="bg-indigo-50">
+            <header className="text-gray-600 text-xs">
                 {field.name}
             </header>
             <div
-                className="bg-white text-gray-500 hover:bg-gray-100 flex flex-row output"
+                className="text-gray-800 text-xs hover:bg-gray-100 flex flex-row"
                 onClick={() => vizStore.setFilterEditing(fIndex)}
                 style={{ cursor: 'pointer' }}
                 title={t('to_edit')}
             >
                 {
                     field.rule ? (
-                        <span className="flex-1">
+                        <span className="flex-1 truncate">
                             {
                                 field.rule.type === 'one of' ? (
                                     `oneOf: [${[...field.rule.value].map(d => JSON.stringify(d)).join(', ')}]`
@@ -105,7 +65,7 @@ const FilterPill: React.FC<FilterPillProps> = observer(props => {
                     height="1.4em"
                 />
             </div>
-        </Pill>
+        </div>
     );
 });
 

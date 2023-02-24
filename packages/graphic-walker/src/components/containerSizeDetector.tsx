@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { FC, memo, useLayoutEffect, useRef, useState } from "react";
 import { Subject, throttleTime } from "rxjs";
 
 
@@ -15,11 +15,24 @@ const sizes = [
 ] as const;
 
 const shorts = [
+    ['block', 'display: block;'],
+    ['hidden', 'display: none;'],
     ['flex', 'display: flex;'],
     ['flex-col', 'flex-direction: column;'],
+    ['flex-row', 'flex-direction: row;'],
+    ['grow', 'flex-grow: 1;'],
+    ['grow-0', 'flex-grow: 0;'],
+    ['shrink', 'flex-shrink: 1;'],
+    ['shrink-0', 'flex-shrink: 0;'],
+    ['basis-0', 'flex-basis: 0;'],
+    ['basis-auto', 'flex-basis: auto;'],
     ['grid', 'display: grid;'],
     ['border-t', 'border-top-width: 1px;'],
-    ['h-\\[680px\\]', 'height: 680px;'],
+    ['rounded-md', 'border-radius: 6px;'],
+    ['w-full', 'width: 100%;'],
+    ['h-full', 'height: 100%;'],
+    ['overflow-y-auto', 'overflow-y: auto;'],
+    ['overflow-y-hidden', 'overflow-y: hidden;'],
 ] as const;
 
 const gridCols = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;

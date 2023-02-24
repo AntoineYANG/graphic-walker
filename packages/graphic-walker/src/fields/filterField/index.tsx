@@ -23,6 +23,7 @@ const FilterItemContainer: React.FC<FieldContainerProps> = observer(({ provided 
         <FilterFieldsContainer
             {...provided.droppableProps}
             ref={provided.innerRef}
+            className="flex flex-col pb-1 divide-y divide-gray-200 w-full"
         >
             {filters.map((f, index) => (
                 <Draggable key={f.dragId} draggableId={f.dragId} index={index}>
@@ -31,6 +32,7 @@ const FilterItemContainer: React.FC<FieldContainerProps> = observer(({ provided 
                             <FilterPill
                                 fIndex={index}
                                 provided={provided}
+                                isDragging={snapshot.isDragging}
                             />
                         );
                     }}
@@ -44,7 +46,7 @@ const FilterItemContainer: React.FC<FieldContainerProps> = observer(({ provided 
 
 const FilterField: React.FC = () => {
     return (
-        <div>
+        <div className="k-sm:w-full k-sm:h-full k-sm:flex">
             <FilterFieldContainer>
                 <Droppable droppableId="filters" direction="vertical">
                     {(provided, snapshot) => (

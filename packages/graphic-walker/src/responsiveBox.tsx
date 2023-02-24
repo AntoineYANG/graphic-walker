@@ -72,7 +72,7 @@ const ResizeHandler = styled.div<{ active: boolean; at: 'right' | 'bottom' }>`
 const MIN_SIZE = 320;
 
 const ResponsiveBox: FC = () => {
-    const [doResize, setDoResize] = useState(false);
+    const [doResize, setDoResize] = useState(true);
     const [allowScroll, setAllowScroll] = useState(true);
     const [width, setWidth] = useState(window.innerWidth - 160);
     const [height, setHeight] = useState(window.innerHeight - 160);

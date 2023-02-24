@@ -1,5 +1,6 @@
 import React from 'react';
 import { Draggable, DroppableProvided } from '@kanaries/react-beautiful-dnd';
+import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { useGlobalStore } from '../../store';
 import DataTypeIcon from '../../components/dataTypeIcon';
@@ -9,37 +10,44 @@ interface Props {
     provided: DroppableProvided;
 }
 const DimFields: React.FC<Props> = props => {
+    const { t } = useTranslation();
     const { provided } = props;
     const { vizStore } = useGlobalStore();
     const dimensions = vizStore.draggableFieldState.dimensions;
-    return <div {...provided.droppableProps} ref={provided.innerRef}>
-        {dimensions.map((f, index) => (
-            <Draggable key={f.dragId} draggableId={f.dragId} index={index}>
-                {(provided, snapshot) => {
-          
-                    return (
-                        <>
-                            <FieldPill
-                                className="pt-0.5 pb-0.5 pl-2 pr-2 mx-0 m-1 text-xs hover:bg-blue-100 rounded-full truncate border border-transparent"
-                                ref={provided.innerRef}
-                                isDragging={snapshot.isDragging}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                            >
-                                <DataTypeIcon dataType={f.semanticType} analyticType={f.analyticType} /> {f.name}&nbsp;
-                            </FieldPill>
-                            {
-                                <FieldPill className={`pt-0.5 pb-0.5 pl-2 pr-2 mx-0 m-1 text-xs hover:bg-blue-100 rounded-full border-blue-400 border truncate ${snapshot.isDragging ? '' : 'hidden'}`}
-                                isDragging={snapshot.isDragging}
+    return <div {...provided.droppableProps} ref={provided.innerRef} className="flex flex-col space-y-1 overflow-hidden">
+        <header className="py-1 px-2 capitalize font-medium">{t('constant.analytic_type.dimension')}</header>
+        <div className="flex flex-col space-y-1 min-h-[8rem] pb-4 overflow-y-auto k-lg:overflow-y-hidden">
+            {dimensions.map((f, index) => (
+                <Draggable key={f.dragId} draggableId={f.dragId} index={index}>
+                    {(provided, snapshot) => {
+            
+                        return (
+                            <>
+                                <FieldPill
+                                    ref={provided.innerRef}
+                                    semanticType={f.semanticType}
+                                    isDragging={snapshot.isDragging}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
                                 >
-                                    <DataTypeIcon dataType={f.semanticType} analyticType={f.analyticType} /> {f.name}&nbsp;
+                                    <DataTypeIcon dataType={f.semanticType} analyticType={f.analyticType} />
+                                    <span>{f.name}&nbsp;</span>
                                 </FieldPill>
-                            }
-                        </>
-                    );
-                }}
-            </Draggable>
-        ))}
+                                {
+                                    <FieldPill className={snapshot.isDragging ? '' : 'hidden'}
+                                    semanticType={f.semanticType}
+                                    isDragging={snapshot.isDragging}
+                                    >
+                                        <DataTypeIcon dataType={f.semanticType} analyticType={f.analyticType} />
+                                        <span>{f.name}&nbsp;</span>
+                                    </FieldPill>
+                                }
+                            </>
+                        );
+                    }}
+                </Draggable>
+            ))}
+        </div>
     </div>
 }
 
