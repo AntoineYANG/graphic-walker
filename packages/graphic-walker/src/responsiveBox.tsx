@@ -10,6 +10,7 @@
 
 import React, { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { GraphicWalker } from ".";
 
 const Container = styled.div`
     display: flex;
@@ -70,8 +71,9 @@ const ResizeHandler = styled.div<{ active: boolean; at: 'right' | 'bottom' }>`
 
 const MIN_SIZE = 320;
 
-const ResponsiveBox: FC = ({ children }) => {
+const ResponsiveBox: FC = () => {
     const [doResize, setDoResize] = useState(false);
+    const [allowScroll, setAllowScroll] = useState(true);
     const [width, setWidth] = useState(window.innerWidth - 160);
     const [height, setHeight] = useState(window.innerHeight - 160);
 
@@ -136,15 +138,17 @@ const ResponsiveBox: FC = ({ children }) => {
 
     return (
         <Container>
-            <div>
-                <label>
-                    <input type="checkbox" checked={doResize} onChange={e => setDoResize(e.target.checked)} />
-                    Toggle Resize
-                </label>
-            </div>
+            <label>
+                <input type="checkbox" checked={doResize} onChange={e => setDoResize(e.target.checked)} />
+                Toggle Resize
+            </label>
+            <label>
+                <input type="checkbox" checked={allowScroll} onChange={e => setAllowScroll(e.target.checked)} />
+                Allow Scroll
+            </label>
             <Box ref={targetRef} active={doResize} style={{ width, height }}>
                 <ContentBody active={doResize} style={{ width, height }}>
-                    {children}
+                    <GraphicWalker overflowMode={allowScroll ? 'auto' : 'hidden'} />
                 </ContentBody>
                 <ResizeHandler
                     active={doResize}

@@ -21,6 +21,7 @@ import VisNav from "./segments/visNav";
 import { mergeLocaleRes, setLocaleLanguage } from "./locales/i18n";
 import FilterField from "./fields/filterField";
 import { guardDataKeys } from "./utils/dataPrep";
+import ContainerSizeDetector from "./components/containerSizeDetector";
 
 export interface IGWProps {
     dataSource?: IRow[];
@@ -30,6 +31,8 @@ export interface IGWProps {
     i18nLang?: string;
     i18nResources?: { [lang: string]: Record<string, string | any> };
     keepAlive?: boolean;
+    /** @default "auto" */
+    overflowMode?: 'auto' | 'hidden';
     /**
      * auto parse field key into a safe string. default is true
      */
@@ -37,7 +40,7 @@ export interface IGWProps {
 }
 
 const App: React.FC<IGWProps> = (props) => {
-    const { dataSource = [], rawFields = [], spec, i18nLang = "en-US", i18nResources, hideDataSourceConfig, fieldKeyGuard = true } = props;
+    const { dataSource = [], rawFields = [], spec, i18nLang = "en-US", i18nResources, hideDataSourceConfig, overflowMode = 'auto', fieldKeyGuard = true } = props;
     const { commonStore, vizStore } = useGlobalStore();
     const [insightReady, setInsightReady] = useState<boolean>(true);
 
@@ -107,26 +110,27 @@ const App: React.FC<IGWProps> = (props) => {
     const rendererRef = useRef<IReactVegaHandler>(null);
 
     return (
-        <div className="App w-full h-full">
+        <div className="App w-full h-full relative overflow-hidden">
+            <ContainerSizeDetector />
             {/* <div className="grow-0">
                 <PageNav />
             </div> */}
-            <div className="">
+            <div className={`w-full h-full ${overflowMode === 'hidden' ? 'overflow-hidden' : 'overflow-auto'}`}>
                 {!hideDataSourceConfig && <DataSourceSegment preWorkDone={insightReady} />}
                 <div className="px-2 mx-2">
                     <VisNav />
                 </div>
                 <Container style={{ marginTop: "0em", borderTop: "none" }}>
                     <VisualSettings rendererHandler={rendererRef} />
-                    <div className="md:grid md:grid-cols-12 xl:grid-cols-6">
-                        <div className="md:col-span-3 xl:col-span-1">
+                    <div className="k-md:grid k-md:grid-cols-12 k-xl:grid-cols-6">
+                        <div className="k-md:col-span-3 k-xl:col-span-1">
                             <DatasetFields />
                         </div>
-                        <div className="md:col-span-2 xl:col-span-1">
+                        <div className="k-md:col-span-2 k-xl:col-span-1">
                             <FilterField />
                             <AestheticFields />
                         </div>
-                        <div className="md:col-span-7 xl:col-span-4">
+                        <div className="k-md:col-span-7 k-xl:col-span-4">
                             <div>
                                 <PosFields />
                             </div>

@@ -10,14 +10,8 @@ inject();
 
 ReactDOM.render(
     <React.StrictMode>
-        {process.env.NODE_ENV === 'development' && (
-            <ResponsiveBox>
-                <GraphicWalker />
-            </ResponsiveBox>
-        )}
-        {process.env.NODE_ENV !== 'development' && (
-            <GraphicWalker />
-        )}
+        {process.env.NODE_ENV === 'development' && <ResponsiveBox />}
+        {process.env.NODE_ENV !== 'development' && <GraphicWalker />}
     </React.StrictMode>,
     document.getElementById("root")
 );
