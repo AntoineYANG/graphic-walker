@@ -107,7 +107,7 @@ const App: React.FC<IGWProps> = (props) => {
     const rendererRef = useRef<IReactVegaHandler>(null);
 
     return (
-        <div className="App">
+        <div className="App w-full h-full">
             {/* <div className="grow-0">
                 <PageNav />
             </div> */}
