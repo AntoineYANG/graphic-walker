@@ -17,7 +17,7 @@ const PosFields: React.FC = props => {
         }
         return DRAGGABLE_STATE_KEYS.filter(f => f.id === 'columns' || f.id === 'rows');
     }, [geoms[0]])
-    return <div>
+    return <div className="-m-1 p-1 space-y-1">
         {
             channels.map(dkey => <FieldListContainer name={dkey.id} key={dkey.id}>
                 <Droppable droppableId={dkey.id} direction="horizontal">

@@ -27,6 +27,7 @@ const OBPill: React.FC<PillProps> = props => {
         colType={field.analyticType === 'dimension' ? 'discrete' : 'continuous'}
         {...provided.draggableProps}
         {...provided.dragHandleProps}
+        className="grow-0 shrink-0 inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium truncate"
     >
         {field.name}&nbsp;
         {field.analyticType === 'measure' && field.fid !== COUNT_FIELD_ID && visualConfig.defaultAggregated && (

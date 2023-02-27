@@ -30,9 +30,11 @@ const shorts = [
     ['border-t', 'border-top-width: 1px;'],
     ['rounded-md', 'border-radius: 6px;'],
     ['w-full', 'width: 100%;'],
+    ['w-\\[100px\\]', 'width: 100px;'],
     ['h-full', 'height: 100%;'],
     ['overflow-y-auto', 'overflow-y: auto;'],
     ['overflow-y-hidden', 'overflow-y: hidden;'],
+    ['mt-0', 'margin-top: 0;'],
 ] as const;
 
 const gridCols = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;

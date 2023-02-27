@@ -4,29 +4,17 @@ import { useTranslation } from 'react-i18next';
 import { COLORS } from "../config";
 
 export const AestheticSegment = styled.div`
-  border: 1px solid #e5e7eb;
+  /* border: 1px solid #e5e7eb; */
   font-size: 12px;
   margin: 0.2em;
-
-  .aes-header{
-    border-bottom: 1px solid #e5e7eb;
-    padding: 0.6em;
-    h4 {
-      font-weight: 400;
-    }
-  }
-  .aes-container{
-    overflow-x: auto;
-  }
-
 `
 
 export const FieldListContainer: React.FC<{ name: string }> = (props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'constant.draggable_key' });
 
   return (
-    <FieldListSegment>
-      <div className="fl-header">
+    <FieldListSegment className="shadow k-sm:rounded-md overflow-hidden select-none flex flex-col k-xs:flex-row">
+      <div className="fl-header w-full k-xs:w-[100px] bg-gray-100 capitalize text-left text-xs font-normal text-gray-900">
         <h4>{t(props.name)}</h4>
       </div>
       <div className="fl-container">{props.children}</div>
@@ -38,11 +26,9 @@ export const AestheticFieldContainer: React.FC<{ name: string }> = props => {
   const { t } = useTranslation('translation', { keyPrefix: 'constant.draggable_key' });
 
   return (
-    <AestheticSegment>
-      <div className="aes-header cursor-default select-none">
-        <h4>{t(props.name)}</h4>
-      </div>
-      <div className="aes-container">{props.children}</div>
+    <AestheticSegment className="flex flex-col shadow k-sm:rounded-md overflow-hidden k-sm:grow select-none">
+      <h4 className="bg-gray-100 py-1 px-2 capitalize text-left text-xs font-normal text-gray-900">{t(props.name)}</h4>
+      <div className="flex-1 flex flex-row k-lg:flex-col overflow-hidden overflow-x-auto pb-1">{props.children}</div>
     </AestheticSegment>
   );
 }
@@ -51,7 +37,7 @@ export const FilterFieldContainer: React.FC = props => {
   const { t } = useTranslation('translation', { keyPrefix: 'constant.draggable_key' });
 
   return (
-    <FilterFieldSegment className="flex flex-col shadow k-sm:rounded-md overflow-hidden k-sm:grow">
+    <FilterFieldSegment className="flex flex-col shadow k-sm:rounded-md overflow-hidden k-sm:grow select-none">
       <h4 className="bg-gray-100 py-1 px-2 capitalize text-left text-xs font-normal text-gray-900">{t("filters")}</h4>
       <div className="flex-1 flex flex-row k-lg:flex-col overflow-hidden pb-1">{props.children}</div>
     </FilterFieldSegment>
@@ -82,13 +68,13 @@ export const FilterFieldsContainer = styled.div({
 
 export const FieldListSegment = styled.div`
   display: flex;
-  border: 1px solid #e5e7eb;
+  /* border: 1px solid #e5e7eb; */
   margin: 0.2em;
   font-size: 12px;
   div.fl-header {
     /* flex-basis: 100px; */
-    width: 100px;
-    border-right: 1px solid #e5e7eb;
+    /* width: 100px; */
+    /* border-right: 1px solid #e5e7eb; */
     flex-shrink: 0;
     h4 {
       margin: 0.6em;

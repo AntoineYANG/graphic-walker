@@ -147,15 +147,13 @@ const App: React.FC<IGWProps> = (props) => {
                                 </div>
                             </div>
                             <div className="k-lg:col-span-2 k-xl:col-span-1">
-                                <div className="block k-sm:hidden k-lg:block">
+                                <div className="block k-sm:hidden k-lg:block mt-[2px] k-sm:mt-0">
                                     <FilterField />
                                 </div>
                                 <AestheticFields />
                             </div>
                             <div className="k-lg:col-span-7 k-xl:col-span-4">
-                                <div>
-                                    <PosFields />
-                                </div>
+                                <PosFields />
                                 <NestContainer
                                     style={{ minHeight: "600px", overflow: "auto" }}
                                     onMouseLeave={() => {

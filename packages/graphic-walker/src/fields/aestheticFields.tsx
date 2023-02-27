@@ -7,7 +7,7 @@ import OBFieldContainer from './obComponents/obFContainer';
 const aestheticFields = DRAGGABLE_STATE_KEYS.filter(f => ['color', 'opacity', 'size', 'shape'].includes(f.id));
 
 const AestheticFields: React.FC = props => {
-    return <div>
+    return <div className="grid grid-cols-2 k-md:grid-cols-4 k-lg:grid-cols-1">
         {
             aestheticFields.map(dkey => <AestheticFieldContainer name={dkey.id} key={dkey.id}>
                 <Droppable droppableId={dkey.id} direction="horizontal">
