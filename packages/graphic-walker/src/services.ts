@@ -1,5 +1,5 @@
 import { toJS } from 'mobx';
-import { IRow, IMutField, IFilterField, Specification } from './interfaces';
+import type { IRow, IMutField, Specification, IFilterWorkflowStep } from './interfaces';
 /* eslint import/no-webpack-loader-syntax:0 */
 // @ts-ignore
 // eslint-disable-next-line
@@ -12,6 +12,7 @@ import FilterWorker from './workers/filter.worker?worker&inline';
 import TransformDataWorker from './workers/transform.worker?worker&inline';
 import ViewQueryWorker from './workers/viewQuery.worker?worker&inline';
 import { IViewQuery } from './lib/viewQuery';
+
 
 // interface WorkerState {
 //     eWorker: Worker | null;
@@ -106,7 +107,7 @@ interface PreAnalysisParams {
 let filterWorker: Worker | null = null;
 let filterWorkerAutoTerminator: NodeJS.Timeout | null = null;
 
-export const applyFilter = async (data: IRow[], filters: readonly IFilterField[]): Promise<IRow[]> => {
+export const applyFilter = async (data: IRow[], filters: IFilterWorkflowStep['filters']): Promise<IRow[]> => {
     if (filters.length === 0) return data;
     if (filterWorkerAutoTerminator !== null) {
         clearTimeout(filterWorkerAutoTerminator);

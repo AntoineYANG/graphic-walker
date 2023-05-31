@@ -68,3 +68,8 @@ export const GraphicWalker = observer<IGWProps & Omit<HTMLAttributes<HTMLDivElem
 });
 
 export { clearStoreCache } from "./store";
+
+export * from './interfaces';
+export type { IGWDataLoader } from './dataLoader';
+export { default as KanariesServerDataLoader } from './dataLoader/kanariesServerDataLoader';
+export type { ToolbarItemProps } from './components/toolbar';

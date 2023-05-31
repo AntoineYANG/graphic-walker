@@ -18,8 +18,12 @@ import SegmentNav from './segments/segmentNav';
 import DatasetConfig from './dataSource/datasetConfig';
 import { useCurrentMediaTheme } from './utils/media';
 import CodeExport from './components/codeExport';
+import type { IGWDataLoader } from './dataLoader';
+import WebWorkerDataLoader from './dataLoader/webWorkerDataLoader';
 import VisualConfig from './components/visualConfig';
 import type { ToolbarItemProps } from './components/toolbar';
+
+
 
 export interface IGWProps {
     dataSource?: IRow[];
@@ -48,6 +52,9 @@ export interface IGWProps {
     themeKey?: IThemeKey;
     dark?: IDarkMode;
     storeRef?: React.MutableRefObject<IGlobalStore | null>;
+    /** @default WebWorkerDataLoader */
+    dataLoader?: IGWDataLoader;
+    datasetId?: string;
     toolbar?: {
         extra?: ToolbarItemProps[];
         exclude?: string[];
@@ -56,6 +63,7 @@ export interface IGWProps {
         width: number;
         height: number;
     };
+    chartId?: string;
 }
 
 const App = observer<IGWProps>(function App(props) {
@@ -69,9 +77,12 @@ const App = observer<IGWProps>(function App(props) {
         fieldKeyGuard = true,
         themeKey = 'vega',
         dark = 'media',
+        dataLoader = new WebWorkerDataLoader(),
+        datasetId,
         toolbar,
         mode = 'editor',
         autoSize,
+        chartId,
     } = props;
     const { commonStore, vizStore } = useGlobalStore();
 
@@ -113,7 +124,7 @@ const App = observer<IGWProps>(function App(props) {
                 name: 'context dataset',
                 dataSource: safeDataset.safeData,
                 rawFields: safeDataset.safeMetas,
-            });
+            }, datasetId);
         }
     }, [safeDataset]);
 
@@ -123,6 +134,10 @@ const App = observer<IGWProps>(function App(props) {
         }
     }, [spec, safeDataset]);
 
+    useEffect(() => {
+        vizStore.setDataLoader(dataLoader);
+    }, [vizStore, dataLoader]);
+
     const darkMode = useCurrentMediaTheme(dark);
 
     const rendererRef = useRef<IReactVegaHandler>(null);
@@ -130,7 +145,13 @@ const App = observer<IGWProps>(function App(props) {
     const renderer = (
         <>
             {datasets.length > 0 && (
-                <ReactiveRenderer ref={rendererRef} themeKey={themeKey} dark={dark} autoSize={autoSize} />
+                <ReactiveRenderer
+                    ref={rendererRef}
+                    themeKey={themeKey}
+                    dark={dark}
+                    autoSize={autoSize}
+                    chartId={chartId}
+                />
             )}
         </>
     );
@@ -228,5 +249,3 @@ const App = observer<IGWProps>(function App(props) {
 });
 
 export default App;
-
-export type { ToolbarItemProps };

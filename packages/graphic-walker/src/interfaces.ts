@@ -1,3 +1,5 @@
+import type { IViewQuery } from "./lib/viewQuery";
+
 export type DeepReadonly<T extends Record<keyof any, any>> = {
     readonly [K in keyof T]: T[K] extends Record<keyof any, any> ? DeepReadonly<T[K]> : T[K];
 };
@@ -43,6 +45,11 @@ export interface IUncertainMutField {
     disable?: boolean;
     semanticType: ISemanticType | '?';
     analyticType: IAnalyticType | '?';
+}
+
+export interface IFieldStats {
+    values: { value: number | string; count: number }[];
+    range: [number, number];
 }
 
 export type IExpParamter =
@@ -221,3 +228,59 @@ export type IDarkMode = 'media' | 'light' | 'dark';
 export type IKeepAlive = boolean | `${boolean}` | 'always' | 'single-instance' | 'never';
 export type IKeepAliveMode = 'always' | 'single-instance' | 'never';
 export type IDisplayMode = 'editor' | 'renderer';
+
+export interface IFilterWorkflowStep {
+    type: 'filter';
+    filters: {
+        [key in keyof Pick<IFilterField, 'fid' | 'rule'>]: NonNullable<IFilterField[key]>;
+    }[];
+}
+
+export interface ITransformWorkflowStep {
+    type: 'transform';
+    transform: {
+        [key in keyof Pick<IViewField, 'fid' | 'expression'>]-?: NonNullable<IViewField[key]>;
+    }[];
+}
+
+export interface IViewWorkflowStep {
+    type: 'view';
+    query: IViewQuery[];
+}
+
+export type IDataQueryWorkflowStep = IFilterWorkflowStep | ITransformWorkflowStep | IViewWorkflowStep;
+
+export type IDataQueryPayload = (
+    | {
+        datasetId: string;
+        query: {
+            workflow: IDataQueryWorkflowStep[];
+            limit?: number;
+            offset?: number;
+        };
+    }
+    | {
+        chartId: string;
+    }
+)
+
+export interface IDataPreviewPayload {
+    datasetId: string;
+    pageSize: number;
+    pageIndex: number;
+}
+
+export type IResponse<T> = (
+    | {
+        success: true;
+        data: T;
+    }
+    | {
+        success: false;
+        message: string;
+        error?: {
+            code: `ERR_${Uppercase<string>}`;
+            options?: Record<string, string>;
+        };
+    }
+);
