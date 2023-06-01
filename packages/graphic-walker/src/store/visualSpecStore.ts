@@ -704,6 +704,7 @@ export class VizSpecStore {
         return stringifyGWContent({
             datasets: toJS(this.commonStore.datasets),
             dataSources: this.commonStore.dataSources,
+            visIndex: this.visIndex,
             specList: pureVisList,
         });
     }
@@ -713,7 +714,7 @@ export class VizSpecStore {
     }
     public importStoInfo (stoInfo: IStoInfo) {
         this.visList = parseGWPureSpec(forwardVisualConfigs(stoInfo.specList));
-        this.visIndex = 0;
+        this.visIndex = stoInfo.visIndex ?? this.visList.length - 1;
         this.commonStore.datasets = stoInfo.datasets;
         this.commonStore.dataSources = stoInfo.dataSources;
         this.commonStore.dsIndex = Math.max(stoInfo.datasets.length - 1, 0);
