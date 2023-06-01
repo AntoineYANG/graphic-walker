@@ -144,7 +144,7 @@ const App = observer<IGWProps>(function App(props) {
 
     const renderer = (
         <>
-            {datasets.length > 0 && (
+            {(datasets.length > 0 || chartId) && (
                 <ReactiveRenderer
                     ref={rendererRef}
                     themeKey={themeKey}
@@ -159,7 +159,7 @@ const App = observer<IGWProps>(function App(props) {
     if (mode === 'renderer') {
         return (
             <div
-                className={`${
+                className={`w-full h-full ${
                     darkMode === 'dark' ? 'dark' : ''
                 } App font-sans bg-white dark:bg-zinc-900 dark:text-white m-0 p-0`}
             >
